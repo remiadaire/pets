@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pets Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #DEC2C4;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        header, main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .header h1, .header h2 {
+            margin: 0;
+        }
+
+        .aside {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .aside button {
+            padding: 10px;
+            margin: 0 10px;
+            background-color: #9a9da0;
+            color: black;
+            border: 3px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .main {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+            max-width: 500px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 5px solid black;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button[type="submit"] {
+            padding: 10px;
+            background-color: #9a9da0;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+
+        .error-message {
+            color: red;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>Lost Pets Found</h1>
+            <h2>Edit Pet Information</h2>
+        </div>
+        <aside class="aside">
+            <button onclick="location.href='/dashboard'">Dashboard</button>
+            <button onclick="location.href='/logout'">Logout</button>
+        </aside>
+    </header>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="error-messages">
+                {% for category, message in messages %}
+                    <p class="error-message">{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
+    <main class="main">
+        <form action="/pet/{{ pet.id }}/edit" method="POST">
+        <!-- <form action="/dashboard/edit/{{ id }}" method="POST"> -->
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location" value="{{ pet.location }}" >
+
+            <label for="date">Date Found:</label>
+            <input type="date" id="date" name="date" value="{{ pet.date_found }}" >
+
+            <label for="count">How Many Animals:</label>
+            <input type="number" id="count" name="count" value="{{ pet.count }}" min="0" >
+
+            <label for="what_happened">Animal Description:</label>
+            <textarea id="what_happened" name="what_happened" maxlength="500" >{{ pet.what_happened }}</textarea>
+
+            <label for="phone_num">Phone Number:</label>
+            <input type="text" id="phone_num" name="phone_num" value="{{ pet.phone_num }}" maxlength="255" >
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="male" {% if gender == 'male' %}selected{% endif %}>Male</option>
+                    <option value="female" {% if gender == 'female' %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="animalType">Animal Type:</label>
+                <select id="animalType" name="animalType">
+                    <option value="dog" {% if animal_type == 'dog' %}selected{% endif %}>Dog</option>
+                    <option value="cat" {% if animal_type == 'cat' %}selected{% endif %}>Cat</option>
+                    <option value="rabbit" {% if animal_type == 'rabbit' %}selected{% endif %}>Rabbit</option>
+                    <option value="hamster" {% if animal_type == 'hamster' %}selected{% endif %}>Hamster</option>
+                    <option value="guineaPig" {% if animal_type == 'guineaPig' %}selected{% endif %}>Guinea Pig</option>
+                    <option value="reptile" {% if animal_type == 'reptile' %}selected{% endif %}>Reptile</option>
+                    <option value="bird" {% if animal_type == 'bird' %}selected{% endif %}>Bird</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Approx. Weight:</label>
+                <select id="weight" name="approx_weight">
+                    <option value="3-5" {% if approx_weight == '3-5' %}selected{% endif %}>3-5 lbs</option>
+                    <option value="5-10" {% if approx_weight == '5-10' %}selected{% endif %}>5-10 lbs</option>
+                    <option value="10-15" {% if approx_weight == '10-15' %}selected{% endif %}>10-15 lbs</option>
+                    <option value="15-20" {% if approx_weight == '15-20' %}selected{% endif %}>15-20 lbs</option>
+                    <option value="20-30" {% if approx_weight == '20-30' %}selected{% endif %}>20-30 lbs</option>
+                    <option value="30-40" {% if approx_weight == '30-40' %}selected{% endif %}>30-40 lbs</option>
+                    <option value="40+" {% if approx_weight == '40+' %}selected{% endif %}>40+ lbs</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age Range:</label>
+                <select id="age" name="age_range">
+                    <option value="1-3" {% if age_range == '1-3' %}selected{% endif %}>1-3 years</option>
+                    <option value="4-6" {% if age_range == '4-6' %}selected{% endif %}>4-6 years</option>
+                    <option value="7-9" {% if age_range == '7-9' %}selected{% endif %}>7-9 years</option>
+                    <option value="10-12" {% if age_range == '10-12' %}selected{% endif %}>10-12 years</option>
+                    <option value="12+" {% if age_range == '12+' %}selected{% endif %}>12+ years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="coloring">Coloring:</label>
+                <select id="coloring" name="coloring">
+                    <option value="white" {% if coloring == 'white' %}selected{% endif %}>White</option>
+                    <option value="black" {% if coloring == 'black' %}selected{% endif %}>Black</option>
+                    <option value="grey" {% if coloring == 'grey' %}selected{% endif %}>Grey</option>
+                    <option value="orange" {% if coloring == 'orange' %}selected{% endif %}>Orange</option>
+                    <option value="brown" {% if coloring == 'brown' %}selected{% endif %}>Brown</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="demeanor">Animal Demeanor:</label>
+                <select id="demeanor" name="demeanor">
+                    <option value="timid" {% if demeanor == 'timid' %}selected{% endif %}>Timid</option>
+                    <option value="reactive" {% if demeanor == 'reactive' %}selected{% endif %}>Reactive</option>
+                    <option value="friendly" {% if demeanor == 'friendly' %}selected{% endif %}>Friendly</option>
+                    <option value="calm" {% if demeanor == 'calm' %}selected{% endif %}>Calm</option>
+                    <option value="hyper" {% if demeanor == 'hyper' %}selected{% endif %}>Hyper</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Key Word Identifiers:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="keyword" value="unique_spots"> Unique Spots</label>
+                    <label><input type="checkbox" name="keyword" value="missing_limb"> Missing Limb</label>
+                    <label><input type="checkbox" name="keyword" value="noticeable_scars"> Noticeable Scars</label>
+                    <label><input type="checkbox" name="keyword" value="solid_coloring"> Solid Coloring</label>
+                    <label><input type="checkbox" name="keyword" value="is_fixed"> Fixed</label>
+                    <label><input type="checkbox" name="keyword" value="multicolored"> Multicolored</label>
+                </div>
+            </div>            
+    
+            <button type="submit">Update Pet Info</button>
+        </form>
+    </main>
+</body>
+</html>
+

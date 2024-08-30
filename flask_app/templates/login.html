@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Registration</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: space-between;
+            margin: 0;
+            padding: 20px;
+            background-color: #DEC2C4;
+            flex-direction: column; 
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: rgb(0, 0, 0);
+        }
+
+        .form-container {
+            display: flex; 
+            width: 100%;
+            justify-content: space-between; 
+            margin-top: 20px;
+        }
+
+        .container {
+            width: 45%;
+            padding: 20px;
+            background-color: white;
+            color: black;
+            border-radius: 10px;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: black;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid black; 
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        label {
+            color: black;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: black;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Report Found Animals</h1>
+    <div class="form-container">
+        <div class="container">
+            <h2>Registration</h2>
+            {% with messages = get_flashed_messages(category_filter=["register"]) %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            <form action="/register/user" method="post">
+                <label for="first_name">First Name</label>
+                <input type="text" id="first_name" name="first_name" required>
+                <label for="last_name">Last Name</label>
+                <input type="text" id="last_name" name="last_name" required>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <label for="confirm_password">Confirm Password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required>
+                <button type="submit" class="btn">Register</button>
+            </form>
+        </div>
+        <div class="container">
+            <h2>Login</h2>
+            {% with messages = get_flashed_messages(category_filter=["login"]) %}
+            {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+            <form action="/login/user" method="post">
+                <label for="login_email">Email</label>
+                <input type="email" id="login_email" name="email" required>
+                <label for="login_password">Password</label>
+                <input type="password" id="login_password" name="password" required>
+                <button type="submit" class="btn">Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

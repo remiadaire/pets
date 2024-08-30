@@ -1,0 +1,262 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pets Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #DEC2C4;
+            color: black;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        header, main {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .header {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .header h1, .header h2 {
+            margin: 0;
+        }
+
+        .aside {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .aside button {
+            padding: 10px;
+            margin: 0 10px;
+            background-color: #9a9da0;
+            color: black;
+            border: 3px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .main {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 60%;
+            max-width: 500px;
+            margin-top: 20px;
+            padding: 20px;
+            border: 5px solid black;
+            background-color: white;
+            border-radius: 10px;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        textarea,
+        select {
+            padding: 10px;
+            margin-bottom: 15px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 2px solid black;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        button[type="submit"] {
+            padding: 10px;
+            background-color: #9a9da0;
+            color: black;
+            border: 2px solid black;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+        }
+/* 
+        .flash-messages {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .flash-message {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .flash-message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+        } */
+
+        .checkbox-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div>
+            <h1>Lost Pets Found</h1>
+            <h2>Report A Found Pet</h2>
+            
+
+        </div>
+        <aside class="aside">
+            <button onclick="location.href='/dashboard'">Dashboard</button>
+            <button onclick="location.href='/logout'">Logout</button>
+        </aside>
+    </header>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <ul class=flashes>
+                {% for category, message in messages %}
+                    <li class="{{ category }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+
+
+    <main class="main">
+        <form action="/dashboard/new" method="POST">
+            <label for="location">Location:</label>
+            <input type="text" id="location" name="location">
+
+            <label for="date">Date Found:</label>
+            <input type="date" id="date" name="date">
+
+            <label for="count">How Many Animals:</label>
+            <input type="number" id="count" name="count" min="1">
+
+            <label for="what_happened">Animal Description:</label>
+            <textarea id="what_happened" name="what_happened" maxlength="50" ></textarea>
+
+            <label for="phone_num">Phone Number:</label>
+            <input type="text" id="phone_num" name="phone_num" maxlength="255">
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" name="gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="animalType">Animal Type:</label>
+                <select id="animalType" name="animalType">
+                    <option value="dog">Dog</option>
+                    <option value="cat">Cat</option>
+                    <option value="rabbit">Rabbit</option>
+                    <option value="hamster">Hamster</option>
+                    <option value="guineaPig">Guinea Pig</option>
+                    <option value="reptile">Reptile</option>
+                    <option value="bird">Bird</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Approx. Weight:</label>
+                <select id="weight" name="weight">
+                    <option value="3-5">3-5 lbs</option>
+                    <option value="5-10">5-10 lbs</option>
+                    <option value="10-15">10-15 lbs</option>
+                    <option value="15-20">15-20 lbs</option>
+                    <option value="20-30">20-30 lbs</option>
+                    <option value="30-40">30-40 lbs</option>
+                    <option value="40+">40+ lbs</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age Range:</label>
+                <select id="age" name="age">
+                    <option value="1-3">1-3 years</option>
+                    <option value="4-6">4-6 years</option>
+                    <option value="7-9">7-9 years</option>
+                    <option value="10-12">10-12 years</option>
+                    <option value="12+">12+ years</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="coloring">Coloring:</label>
+                <select id="coloring" name="coloring">
+                    <option value="white">White</option>
+                    <option value="black">Black</option>
+                    <option value="grey">Grey</option>
+                    <option value="orange">Orange</option>
+                    <option value="brown">Brown</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="demeanor">Animal Demeanor:</label>
+                <select id="demeanor" name="demeanor">
+                    <option value="timid">Timid</option>
+                    <option value="reactive">Reactive</option>
+                    <option value="friendly">Friendly</option>
+                    <option value="calm">Calm</option>
+                    <option value="hyper">Hyper</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Select Key Word Identifiers:</label>
+                <div class="checkbox-group">
+                    <label><input type="checkbox" name="keyword" value="uniqueSpots"> Unique Spots</label>
+                    <label><input type="checkbox" name="keyword" value="missingLimb"> Missing Limb</label>
+                    <label><input type="checkbox" name="keyword" value="noticeableScars"> Noticeable Scars</label>
+                    <label><input type="checkbox" name="keyword" value="solidColoring"> Solid Coloring</label>
+                    <label><input type="checkbox" name="keyword" value="fixed"> Fixed</label>
+                    <label><input type="checkbox" name="keyword" value="multicolored"> Multicolored</label>
+                </div>
+            </div>
+
+            <button type="submit">Report</button>
+        </form>
+    </main>
+</body>
+</html>
+

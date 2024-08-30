@@ -1,0 +1,299 @@
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pets Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 2px solid black;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pet-details {
+            border: 2px solid black;
+            padding: 20px;
+            width: 60%;
+            background-color: #f9f9f9;
+        }
+
+        .pet-details h3 {
+            text-align: center;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .details-table th, .details-table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .details-table th {
+            width: 30%;
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Found Pets</h1>
+        <div class="upper-right">
+            <div class="user-details">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+            <div class="action-buttons">
+                <button onclick="location.href='/dashboard'">Dashboard</button>
+                <button onclick="location.href='/logout'">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2>{{ pet.location }} on {{ pet.date_found }}</h2>
+
+        <div class="pet-details">
+            <h3>About This Lost Pet</h3>
+            <table class="details-table">
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ pet.gender }}</td>
+                </tr>
+                <tr>
+                    <th>Animal Type</th>
+                    <td>{{ pet.animal_type }}</td>
+                </tr>
+                <tr>
+                    <th>Approx. Weight</th>
+                    <td>{{ pet.approx_weight }}</td>
+                </tr>
+                <tr>
+                    <th>Age Range</th>
+                    <td>{{ pet.age_range }}</td>
+                </tr>
+                <tr>
+                    <th>Coloring</th>
+                    <td>{{ pet.coloring }}</td>
+                </tr>
+                <tr>
+                    <th>Demeanor</th>
+                    <td>{{ pet.demeanor }}</td>
+                </tr>
+                <tr>
+                    <th>Unique Spots</th>
+                    <td>{{ 'Yes' if pet.unique_spots else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Missing Limb</th>
+                    <td>{{ 'Yes' if pet.missing_limb else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Noticeable Scars</th>
+                    <td>{{ 'Yes' if pet.noticeable_scars else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Solid Coloring</th>
+                    <td>{{ 'Yes' if pet.solid_coloring else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Fixed</th>
+                    <td>{{ 'Yes' if pet.is_fixed else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Multicolored</th>
+                    <td>{{ 'Yes' if pet.multicolored else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Pets</th>
+                    <td>{{ pet.count }}</td>
+                </tr>
+                <tr>
+                    <th>Reported By</th>
+                    <td>{{ pet.creator.first_name }} {{ pet.creator.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>What Happened</th>
+                    <td>{{ pet.what_happened }}</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lost Pets Found</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #DEC2C4;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 2px solid black;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .pet-details {
+            border: 2px solid black;
+            padding: 20px;
+            width: 60%;
+            background-color: #f9f9f9;
+        }
+
+        .pet-details h3 {
+            text-align: center;
+        }
+
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .details-table th, .details-table td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .details-table th {
+            width: 30%;
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Found Pets</h1>
+        <div class="upper-right">
+            <div class="user-details">
+                <p>{{ user.first_name }} {{ user.last_name }}</p>
+            </div>
+            <div class="action-buttons">
+                <button onclick="location.href='/dashboard'">Dashboard</button>
+                <button onclick="location.href='/logout'">Logout</button>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h2>To claim this animal, call {{ pet.phone_num }}</h2>
+        <h2>{{ pet.location }} on {{ pet.date_found }}</h2>
+
+        <div class="pet-details">
+            <h3>About This Lost Pet</h3>
+            <table class="details-table">
+                <tr>
+                    <th>Gender</th>
+                    <td>{{ pet.gender }}</td>
+                </tr>
+                <tr>
+                    <th>Animal Type</th>
+                    <td>{{ pet.animal_type }}</td>
+                </tr>
+                <tr>
+                    <th>Approx. Weight</th>
+                    <td>{{ pet.approx_weight }}</td>
+                </tr>
+                <tr>
+                    <th>Age Range</th>
+                    <td>{{ pet.age_range }}</td>
+                </tr>
+                <tr>
+                    <th>Coloring</th>
+                    <td>{{ pet.coloring }}</td>
+                </tr>
+                <tr>
+                    <th>Demeanor</th>
+                    <td>{{ pet.demeanor }}</td>
+                </tr>
+                <tr>
+                    <th>Unique Spots</th>
+                    <td>{{ 'Yes' if pet.unique_spots else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Missing Limb</th>
+                    <td>{{ 'Yes' if pet.missing_limb else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Noticeable Scars</th>
+                    <td>{{ 'Yes' if pet.noticeable_scars else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Solid Coloring</th>
+                    <td>{{ 'Yes' if pet.solid_coloring else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Fixed</th>
+                    <td>{{ 'Yes' if pet.is_fixed else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Multicolored</th>
+                    <td>{{ 'Yes' if pet.multicolored else 'No' }}</td>
+                </tr>
+                <tr>
+                    <th>Number of Pets</th>
+                    <td>{{ pet.count }}</td>
+                </tr>
+                <tr>
+                    <th>Reported By</th>
+                    <td>{{ pet.creator.first_name }} {{ pet.creator.last_name }}</td>
+                </tr>
+                <tr>
+                    <th>What Happened</th>
+                    <td>{{ pet.what_happened }}</td>
+                </tr>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

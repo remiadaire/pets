@@ -1,0 +1,224 @@
+<!-- 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find and Claim Local Missing Pets</title>
+    <style>
+        body {
+            background-color: #DEC2C4;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 5px solid black; /* Thick black border */
+            background-color: white; /* White background inside the table */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            background-color: white; /* Ensure cells have a white background */
+        }
+
+        tr:nth-child(even) {
+            background-color: white; /* Ensure even rows have a white background */
+        }
+
+        .edit-btn {
+            background-color: rgb(54, 161, 143);
+            color: white;
+        }
+
+        .delete-btn {
+            background-color: rgb(151, 83, 103);
+            color: white;
+        }
+
+        .view-btn {
+            background-color: rgb(26, 123, 102);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Paw Finder</h1>
+        <div>
+            <h1>Find and Claim Lost Pets</h1>
+        </div>
+        <div>
+            <p>{{ user.first_name }} {{ user.last_name }}</p>
+            <button onclick="location.href='/dashboard/new'">Report a Found Pet</button>
+            <button onclick="location.href='/logout'">Logout</button>
+        </div>
+    </header>
+    
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Location Found</th>
+                    <th>Date Animal Found</th>
+                    <th>How Many Animals</th>
+                    <th>Reported by</th>
+                    <th>Gender</th>
+                    <th>Animal Type</th>
+                    <th>Approx. Weight</th>
+                    <th>Age Range -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find and Claim Local Missing Pets</title>
+    <style>
+        body {
+            background-color: #DEC2C4;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 5px solid black; /* Thick black border */
+            background-color: white; /* White background inside the table */
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            background-color: white; /* Ensure cells have a white background */
+        }
+
+        tr:nth-child(even) {
+            background-color: white; /* Ensure even rows have a white background */
+        }
+
+        .edit-btn {
+            background-color: rgb(54, 161, 143);
+            color: white;
+            border: 2px solid black; /* Thick black border */
+        }
+
+        .delete-btn {
+            background-color: rgb(151, 83, 103);
+            color: white;
+            border: 2px solid black; /* Thick black border */
+        }
+
+        .view-btn {
+            background-color: rgb(26, 123, 102);
+            color: white;
+            border: 2px solid black; /* Thick black border */
+        }
+
+        .user-name {
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Paw Finder</h1>
+        <div>
+            <h1>Find and Claim Lost Pets</h1>
+        </div>
+        <div>
+            <p class="user-name">{{ user.first_name }} {{ user.last_name }}</p>
+            <button onclick="location.href='/dashboard/new'">Report a Found Pet</button>
+            <button onclick="location.href='/logout'">Logout</button>
+        </div>
+    </header>
+    
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Location Found</th>
+                    <th>Date Animal Found</th>
+                    <th>How Many Animals</th>
+                    <th>Reported by</th>
+                    <th>Gender</th>
+                    <th>Animal Type</th>
+                    <th>Approx. Weight</th>
+                    <th>Age Range</th>
+                    <th>Coloring</th>
+                    <th>Demeanor</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for pet in pets %}
+                <tr>
+                    <td>{{ pet.location }}</td>
+                    <td>{{ pet.date_found }}</td>
+                    <td>{{ pet.count }}</td> 
+                    <td>{{ pet.creator.first_name }}</td>
+                    <td>{{ pet.gender }}</td>
+                    <td>{{ pet.animal_type }}</td>
+                    <td>{{ pet.approx_weight }}</td>
+                    <td>{{ pet.age_range }}</td>
+                    <td>{{ pet.coloring }}</td>
+                    <td>{{ pet.demeanor }}</td>
+                    <td>
+                        {% if pet.creator.id == user.id %}
+                            <button class="edit-btn" onclick="location.href='/pet/{{ pet.id }}/edit'">Edit</button>
+                            <button class="delete-btn" onclick="location.href='/dashboard/{{ pet.id }}/delete'">Claimed</button>
+                        {% else %}
+                            <button class="view-btn" onclick="location.href='/pet/{{ pet.id }}'">View</button>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>
+
+
